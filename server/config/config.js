@@ -26,8 +26,7 @@ if (process.env.NODE_ENV === 'dev') {
     // si es igual a desarrollo le asignamos la cadena de conexion
     urlBD = 'mongodb://localhost:27017/cafe';
 } else {
-    // cadena de conexion produccion 
-    //
+    // cadena de conexion produccion
     urlBD = 'mongodb://cafe-user:D180714E@ds153552.mlab.com:53552/cafe';
 }
 
