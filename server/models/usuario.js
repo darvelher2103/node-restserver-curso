@@ -47,7 +47,7 @@ let usuarioSchema = new Schema({
 
 // modificamos cuando se imprima en un toJson el usuarioSchema 
 // para que no muestre la propiedad password
-// quitamos el password cada vz que el objeto quiera pasarse a un JSON
+// quitamos el password cada vez que el objeto quiera pasarse a un JSON
 usuarioSchema.methods.toJSON = function() {
     let user = this;
     let userObject = user.toObject();

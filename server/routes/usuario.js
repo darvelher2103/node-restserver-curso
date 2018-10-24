@@ -9,11 +9,14 @@ const _ = require('underscore');
 //objeto usuario que podemos utilizar para crear nuevos elementos
 const Usuario = require('../models/usuario');
 
+const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticacion');
+
 //cargamos e inicializamos el express
 const app = express();
 
 //traemos los usuarios de la base de datos..
-app.get('/usuario', function(req, res) {
+// verificaToken es el middlewar que se dispara cuando quiera acceder a esta ruta
+app.get('/usuario', verificaToken, (req, res) => { //remplazamos el callback por un middlewares
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -43,11 +46,20 @@ app.get('/usuario', function(req, res) {
 
         });
 
+    /*return res.json({
+        usuario: req.usuario,
+        nombre: req.usuario.nombre,
+        email: req.usuario.email
+    });*/
+
     //res.json('get Usuario LOCAL!!!')
 });
 
 //agregamos los usuarios a la base de datos..
-app.post('/usuario', function(req, res) {
+//los middlewares se colocan como segundo argumento es un collbacks
+// este midd.. se dispara cuando quiera acceder a la ruta '/usuario'
+app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
+
     let body = req.body;
     //creamos el objeto de tipo usuario con los valores que recibimos del formulario..
 
@@ -87,7 +99,7 @@ app.post('/usuario', function(req, res) {
 });
 
 //actualizamos los usuarios de la basde de datos..
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     let id = req.params.id;
     //cargamos las opciones que sepuedan atualizar
@@ -96,7 +108,7 @@ app.put('/usuario/:id', function(req, res) {
     Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
 
         if (err) {
-            return res.status().json({
+            return res.status(400).json({
                 ok: false,
                 err
             });
@@ -116,7 +128,7 @@ app.put('/usuario/:id', function(req, res) {
 });
 
 //eliminamos los usuarios de la base de datos..
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     let id = req.param.id;
     //Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
