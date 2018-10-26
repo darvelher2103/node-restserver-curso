@@ -71,6 +71,7 @@ app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
     });
 
     usuario.save((err, usuarioDB) => {
+
         if (err) { //si existe un error termina el codigo
             return res.status(400).json({
                 ok: false,
