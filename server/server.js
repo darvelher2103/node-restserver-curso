@@ -25,12 +25,13 @@ app.use(require('./routes/index'));
 //environment desarrollo - produccion
 //establecemos la conexion
 //mongoose.connect('mongodb://localhost:27017/cafe', (err, resp) => {
-mongoose.connect(process.env.URLDB, (err, resp) => {
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, resp) => {
     //definimos un collback para saber si lo logra hacer o no
     if (err) throw err; // se detiene el programa mostrando el porque.
     // en caso contrario
     console.log('Base de datos ONLINE (conectado)');
 });
+
 
 //cadena de conexion local(escuchando el puerto definido)
 app.listen(process.env.PORT, () => {
