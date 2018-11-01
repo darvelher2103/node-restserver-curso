@@ -1,13 +1,18 @@
-//Archivo de configuracion que me permite de manera transparente cambiar
+//Archivo de configuracion que me permite de manera transparente cambiar 
 //El estado de configuracion local a produccion, sin necesidad de modificar  
 //El archivo server.js (cambio de puerto)
 
-//Aqui definimos las variables de configuracion
+
+//Aqui definimos las variables de configuracion (const - variables - global)
+
+//process -> objeto global que esta corriendo a lo largo de toda la aplicacion de node 
+//Es actualiado dependiendo del env o entorno en el que este corriendo
 
 //=====================
 // puerto
 //===================
 
+// en desarrollo no existe entonces el puerto es igual a 3000
 process.env.PORT = process.env.PORT || 3000;
 
 
@@ -49,3 +54,10 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 process.env.URLDB = urlBD;
+
+
+//=====================
+// Google CLient ID
+//===================
+
+process.env.CLIENT_ID = process.env.CLIENT_ID || '476930448266-b9rft7mi9ga617r9ss0vq30q5gha1s4m.apps.googleusercontent.com';

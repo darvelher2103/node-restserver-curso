@@ -4,6 +4,9 @@ const express = require('express');
 //cargamos la libreria de mongoose
 const mongoose = require('mongoose');
 
+//para solucionar el error de la ruta ../public
+const path = require('path');
+
 //inicializamos el express
 const app = express();
 
@@ -17,6 +20,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //paquete que serializa la informacion
 //para que sea facilmente procesada en las peticiones post
 app.use(bodyParser.json());
+
+
+//Habilitar la carpeta public para que se pueda acceder desde cualquier lugar
+//app.use(express.static(__dirname + '../public'));
+app.use(express.static(path.resolve(__dirname, '../public')));
+
+
+//mandamos segmentos del path y la funcion los arma por nosotros path.resolve() -> 
+//console.log(path.resolve(__dirname, '../public'));
 
 //Configuracion global de rutas
 app.use(require('./routes/index'));
