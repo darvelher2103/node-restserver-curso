@@ -41,7 +41,7 @@ mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, resp) => {
     //definimos un collback para saber si lo logra hacer o no
     if (err) throw err; // se detiene el programa mostrando el porque.
     // en caso contrario
-    console.log('Base de datos ONLINE (conectado)');
+    console.log('Base de datos ONLINE');
 });
 
 
