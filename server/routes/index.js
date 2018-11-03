@@ -11,5 +11,8 @@ app.use(require('./usuario'));
 //referenciamos las rutas del login
 app.use(require('./login'));
 
+//referenciamos las rutas de las categorias 
+app.use(require('./categoria'));
+
 
 module.exports = app;
