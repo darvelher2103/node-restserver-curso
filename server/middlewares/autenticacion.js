@@ -25,6 +25,7 @@ let verificaToken = (req, res, next) => {
         //hacemos que cualquier peticion tenga acceso a los usuarios
         // con solo pasar por el verificar token
         req.usuario = decoded.usuario;
+        //console.log(req.usuario);
         next(); // para que continue
 
     });

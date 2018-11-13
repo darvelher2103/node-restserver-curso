@@ -6,17 +6,18 @@ let app = express();
 
 let Categoria = require('../models/categoria');
 
-
 //*****************************
 // Mostrar todas las categorias
 //*****************************
 app.get('/categoria', verificaToken, (req, res) => {
 
     // Trae Todas las categorías
+    // .populate() verifica que objecId existe en el modelo Categoria
     Categoria.find({})
+        .sort('descripcion')
+        .populate('usuario', 'nombre email')
         .exec((err, categorias) => {
 
-            // Si existe un error
             if (err) {
                 return res.status(500).json({
                     ok: false,
@@ -24,14 +25,15 @@ app.get('/categoria', verificaToken, (req, res) => {
                 });
             }
 
-            // Si no hay errores
             res.json({
                 ok: true,
                 categorias
             });
+
         })
 
 });
+
 
 //*****************************
 // Mostrar una categoria por ID
@@ -78,7 +80,7 @@ app.post('/categoria', verificaToken, (req, res) => {
     // req.usuario._id
 
     let body = req.body;
-
+    //console.log(req.usuario._id);
     //instancia de categoria 
     let categoria = new Categoria({
         descripcion: body.descripcion,
@@ -153,7 +155,6 @@ app.put('/categoria/:id', verificaToken, (req, res) => {
 
 });
 
-
 app.delete('/categoria/:id', [verificaToken, verificaAdmin_Role], (req, res) => {
     // Solo un admin puede borrar la categoria
     // Vategoria.finByIdAndRemove
@@ -184,12 +185,8 @@ app.delete('/categoria/:id', [verificaToken, verificaAdmin_Role], (req, res) => 
             message: 'Categoría Borrada'
         });
 
-
     });
 
-
 });
-
-
 
 module.exports = app;
