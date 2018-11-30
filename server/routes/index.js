@@ -17,5 +17,11 @@ app.use(require('./categoria'));
 //referenciamos las rutas de los productos 
 app.use(require('./producto'));
 
+//referenciamos las rutas de carga de archivos 
+app.use(require('./upload'));
+
+//referenciamos las rutas de muestra de archivos 
+app.use(require('./imagenes'));
+
 
 module.exports = app;

@@ -19,7 +19,7 @@ process.env.PORT = process.env.PORT || 3000;
 //=====================
 // Entorno
 //===================
-//si existe algo se que estare corriendo en produccion
+//si existe algo, se que estare corriendo en produccion.
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev'; //si esta variabe no existe me encuentro en el entorno desarrollo 
 
 //=====================
